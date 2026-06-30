@@ -1,0 +1,7 @@
+project_id = "hgivyjjethjwswjrvroy"
+
+[functions.search]
+verify_jwt = false
+
+[functions.telegram-payments]
+verify_jwt = false

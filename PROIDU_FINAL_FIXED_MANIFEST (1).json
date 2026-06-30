@@ -1,0 +1,32 @@
+{
+  "release": "v0.3.0-final-fixed",
+  "created": "2026-06-30",
+  "artifacts": {
+    "PROIDU_FINAL_FIXED_PAGES.zip": {
+      "sha256": "15e93214189e05a53ada5949eacb45fd498b2c3a512b3b7a592bb4b2cbceed2a",
+      "contents": [
+        "index.html",
+        "assets/index-DS8Gv5eX.css",
+        "assets/index-7yH5Q1fh.js"
+      ]
+    },
+    "PROIDU_FINAL_FIXED_GITHUB.zip": {
+      "sha256": "d47745a8a5dbab28e4744d9ad66400f131a11c353367a20ef4aab38a7be9adfc",
+      "type": "source monorepo with GitHub Actions, Supabase functions, migrations, fixtures and docs"
+    }
+  },
+  "verification": {
+    "unit_tests": "11/11 passed",
+    "typescript": "passed",
+    "vite_build": "passed",
+    "live_search": "HTTP 200, 8 programs, 4 universities, 4 cities",
+    "live_route": "HTTP 200, 5 priorities, 4 universities, 4 cities"
+  },
+  "live_coverage": {
+    "regions": 89,
+    "institutions_catalog": 751,
+    "verified_programs": 9,
+    "verified_offers_2026": 9,
+    "verified_cutoffs_2025": 8
+  }
+}

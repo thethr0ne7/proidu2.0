@@ -1,0 +1,108 @@
+export interface UniversityRegion {
+  id: string;
+  name: string;
+  district: string;
+  monitoringId: string;
+}
+
+export const UNIVERSITY_REGIONS: UniversityRegion[] = [
+  { id: 'belgorod', name: 'Белгородская область', district: 'ЦФО', monitoringId: '10501' },
+  { id: 'bryansk', name: 'Брянская область', district: 'ЦФО', monitoringId: '10303' },
+  { id: 'vladimir', name: 'Владимирская область', district: 'ЦФО', monitoringId: '10304' },
+  { id: 'voronezh', name: 'Воронежская область', district: 'ЦФО', monitoringId: '10502' },
+  { id: 'moscow-city', name: 'Москва', district: 'ЦФО', monitoringId: '10301' },
+  { id: 'ivanovo', name: 'Ивановская область', district: 'ЦФО', monitoringId: '10305' },
+  { id: 'kaluga', name: 'Калужская область', district: 'ЦФО', monitoringId: '10307' },
+  { id: 'kostroma', name: 'Костромская область', district: 'ЦФО', monitoringId: '10308' },
+  { id: 'kursk', name: 'Курская область', district: 'ЦФО', monitoringId: '10503' },
+  { id: 'lipetsk', name: 'Липецкая область', district: 'ЦФО', monitoringId: '10504' },
+  { id: 'moscow-region', name: 'Московская область', district: 'ЦФО', monitoringId: '10302' },
+  { id: 'oryol', name: 'Орловская область', district: 'ЦФО', monitoringId: '10309' },
+  { id: 'ryazan', name: 'Рязанская область', district: 'ЦФО', monitoringId: '10310' },
+  { id: 'smolensk', name: 'Смоленская область', district: 'ЦФО', monitoringId: '10311' },
+  { id: 'tambov', name: 'Тамбовская область', district: 'ЦФО', monitoringId: '10505' },
+  { id: 'tver', name: 'Тверская область', district: 'ЦФО', monitoringId: '10306' },
+  { id: 'tula', name: 'Тульская область', district: 'ЦФО', monitoringId: '10312' },
+  { id: 'yaroslavl', name: 'Ярославская область', district: 'ЦФО', monitoringId: '10313' },
+
+  { id: 'arkhangelsk', name: 'Архангельская область', district: 'СЗФО', monitoringId: '10101' },
+  { id: 'vologda', name: 'Вологодская область', district: 'СЗФО', monitoringId: '10102' },
+  { id: 'saint-petersburg', name: 'Санкт-Петербург', district: 'СЗФО', monitoringId: '10201' },
+  { id: 'kaliningrad', name: 'Калининградская область', district: 'СЗФО', monitoringId: '11200' },
+  { id: 'leningrad-region', name: 'Ленинградская область', district: 'СЗФО', monitoringId: '10202' },
+  { id: 'murmansk', name: 'Мурманская область', district: 'СЗФО', monitoringId: '10105' },
+  { id: 'nenets', name: 'Ненецкий автономный округ', district: 'СЗФО', monitoringId: '10106' },
+  { id: 'novgorod', name: 'Новгородская область', district: 'СЗФО', monitoringId: '10204' },
+  { id: 'pskov', name: 'Псковская область', district: 'СЗФО', monitoringId: '10205' },
+  { id: 'karelia', name: 'Республика Карелия', district: 'СЗФО', monitoringId: '10103' },
+  { id: 'komi', name: 'Республика Коми', district: 'СЗФО', monitoringId: '10104' },
+
+  { id: 'kirov', name: 'Кировская область', district: 'ПФО', monitoringId: '10402' },
+  { id: 'nizhny-novgorod', name: 'Нижегородская область', district: 'ПФО', monitoringId: '10401' },
+  { id: 'orenburg', name: 'Оренбургская область', district: 'ПФО', monitoringId: '10802' },
+  { id: 'penza', name: 'Пензенская область', district: 'ПФО', monitoringId: '10604' },
+  { id: 'perm', name: 'Пермский край', district: 'ПФО', monitoringId: '10803' },
+  { id: 'bashkortostan', name: 'Республика Башкортостан', district: 'ПФО', monitoringId: '10806' },
+  { id: 'mari-el', name: 'Республика Марий Эл', district: 'ПФО', monitoringId: '10403' },
+  { id: 'mordovia', name: 'Республика Мордовия', district: 'ПФО', monitoringId: '10404' },
+  { id: 'tatarstan', name: 'Республика Татарстан', district: 'ПФО', monitoringId: '10608' },
+  { id: 'samara', name: 'Самарская область', district: 'ПФО', monitoringId: '10603' },
+  { id: 'saratov', name: 'Саратовская область', district: 'ПФО', monitoringId: '10605' },
+  { id: 'udmurtia', name: 'Удмуртская Республика', district: 'ПФО', monitoringId: '10807' },
+  { id: 'ulyanovsk', name: 'Ульяновская область', district: 'ПФО', monitoringId: '10606' },
+  { id: 'chuvashia', name: 'Чувашская Республика', district: 'ПФО', monitoringId: '10405' },
+
+  { id: 'astrakhan', name: 'Астраханская область', district: 'ЮФО', monitoringId: '10601' },
+  { id: 'volgograd', name: 'Волгоградская область', district: 'ЮФО', monitoringId: '10602' },
+  { id: 'sevastopol', name: 'Севастополь', district: 'ЮФО', monitoringId: '11302' },
+  { id: 'krasnodar', name: 'Краснодарский край', district: 'ЮФО', monitoringId: '10701' },
+  { id: 'adygea', name: 'Республика Адыгея', district: 'ЮФО', monitoringId: '10711' },
+  { id: 'kalmykia', name: 'Республика Калмыкия', district: 'ЮФО', monitoringId: '10607' },
+  { id: 'crimea', name: 'Республика Крым', district: 'ЮФО', monitoringId: '11301' },
+  { id: 'rostov', name: 'Ростовская область', district: 'ЮФО', monitoringId: '10703' },
+
+  { id: 'ingushetia', name: 'Республика Ингушетия', district: 'СКФО', monitoringId: '10708' },
+  { id: 'kabardino-balkaria', name: 'Кабардино-Балкарская Республика', district: 'СКФО', monitoringId: '10705' },
+  { id: 'karachay-cherkessia', name: 'Карачаево-Черкесская Республика', district: 'СКФО', monitoringId: '10710' },
+  { id: 'dagestan', name: 'Республика Дагестан', district: 'СКФО', monitoringId: '10704' },
+  { id: 'north-ossetia', name: 'Республика Северная Осетия — Алания', district: 'СКФО', monitoringId: '10706' },
+  { id: 'stavropol', name: 'Ставропольский край', district: 'СКФО', monitoringId: '10702' },
+  { id: 'chechnya', name: 'Чеченская Республика', district: 'СКФО', monitoringId: '10709' },
+
+  { id: 'kurgan', name: 'Курганская область', district: 'УФО', monitoringId: '10801' },
+  { id: 'sverdlovsk', name: 'Свердловская область', district: 'УФО', monitoringId: '10804' },
+  { id: 'tyumen', name: 'Тюменская область', district: 'УФО', monitoringId: '10906' },
+  { id: 'khanty-mansi', name: 'Ханты-Мансийский автономный округ — Югра', district: 'УФО', monitoringId: '10908' },
+  { id: 'chelyabinsk', name: 'Челябинская область', district: 'УФО', monitoringId: '10805' },
+  { id: 'yamalo-nenets', name: 'Ямало-Ненецкий автономный округ', district: 'УФО', monitoringId: '10909' },
+
+  { id: 'altai-krai', name: 'Алтайский край', district: 'СФО', monitoringId: '10901' },
+  { id: 'irkutsk', name: 'Иркутская область', district: 'СФО', monitoringId: '11002' },
+  { id: 'kemerovo', name: 'Кемеровская область — Кузбасс', district: 'СФО', monitoringId: '10902' },
+  { id: 'krasnoyarsk', name: 'Красноярский край', district: 'СФО', monitoringId: '11001' },
+  { id: 'novosibirsk', name: 'Новосибирская область', district: 'СФО', monitoringId: '10903' },
+  { id: 'omsk', name: 'Омская область', district: 'СФО', monitoringId: '10904' },
+  { id: 'altai-republic', name: 'Республика Алтай', district: 'СФО', monitoringId: '10907' },
+  { id: 'tuva', name: 'Республика Тыва', district: 'СФО', monitoringId: '11005' },
+  { id: 'khakassia', name: 'Республика Хакасия', district: 'СФО', monitoringId: '11006' },
+  { id: 'tomsk', name: 'Томская область', district: 'СФО', monitoringId: '10905' },
+
+  { id: 'amur', name: 'Амурская область', district: 'ДФО', monitoringId: '11103' },
+  { id: 'jewish-autonomous', name: 'Еврейская автономная область', district: 'ДФО', monitoringId: '11109' },
+  { id: 'zabaykalsky', name: 'Забайкальский край', district: 'ДФО', monitoringId: '11003' },
+  { id: 'kamchatka', name: 'Камчатский край', district: 'ДФО', monitoringId: '11104' },
+  { id: 'magadan', name: 'Магаданская область', district: 'ДФО', monitoringId: '11105' },
+  { id: 'primorsky', name: 'Приморский край', district: 'ДФО', monitoringId: '11101' },
+  { id: 'buryatia', name: 'Республика Бурятия', district: 'ДФО', monitoringId: '11004' },
+  { id: 'sakha', name: 'Республика Саха (Якутия)', district: 'ДФО', monitoringId: '11107' },
+  { id: 'sakhalin', name: 'Сахалинская область', district: 'ДФО', monitoringId: '11106' },
+  { id: 'khabarovsk', name: 'Хабаровский край', district: 'ДФО', monitoringId: '11102' },
+  { id: 'chukotka', name: 'Чукотский автономный округ', district: 'ДФО', monitoringId: '11108' },
+
+  { id: 'donetsk', name: 'Донецкая Народная Республика', district: 'Новые регионы', monitoringId: '11303' },
+  { id: 'lugansk', name: 'Луганская Народная Республика', district: 'Новые регионы', monitoringId: '11304' },
+  { id: 'zaporozhye', name: 'Запорожская область', district: 'Новые регионы', monitoringId: '11305' },
+  { id: 'kherson', name: 'Херсонская область', district: 'Новые регионы', monitoringId: '11306' }
+];
+
+export const REGION_GROUPS = Array.from(new Set(UNIVERSITY_REGIONS.map((region) => region.district)));

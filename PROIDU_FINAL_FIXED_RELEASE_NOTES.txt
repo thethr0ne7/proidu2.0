@@ -1,0 +1,35 @@
+PROIDU v0.3.0 — FINAL FIXED RELEASE
+
+Included:
+- no intro;
+- no local KBSU scoring flow;
+- one federal search entry point;
+- individual score input for each ЕГЭ subject;
+- per-program minimum score validation;
+- correct alternative exam handling;
+- program-specific total score;
+- search by university, program, code, region and city;
+- All / Reachable / Route result modes;
+- multi-university and multi-city output;
+- free developer route;
+- university-specific individual achievements;
+- diversified priorities;
+- deadlines and document checklists;
+- honest data coverage and missing-data warnings;
+- payment CTA disabled until Telegram Stars backend is fully configured;
+- GitHub Actions deployment;
+- live Search and Route Edge Functions.
+
+Verified on 2026-06-30:
+- 11/11 relevant unit tests passed;
+- TypeScript passed;
+- Vite production build passed;
+- live search HTTP 200: 8 programs, 4 universities, 4 cities;
+- live route HTTP 200: 5 priorities, 4 universities, 4 cities.
+
+Current live data limitation:
+- 751 institutions/branches in catalog;
+- 9 verified competitive programs;
+- route-ready multi-city test layer covers HSE, MIPT, KFU and ITMO.
+
+Adding all Russian universities to competitive search still requires ingestion and verification of each university's official 2026 admission documents.

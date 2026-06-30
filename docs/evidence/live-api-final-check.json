@@ -1,0 +1,34 @@
+{
+  "release": "v0.3.0-final-fixed",
+  "checked_on": "2026-06-30",
+  "search": {
+    "http_status": 200,
+    "input_scores": {
+      "russian": 85,
+      "math": 90,
+      "informatics": 88
+    },
+    "program_score": 263,
+    "programs": 8,
+    "universities": 4,
+    "cities": 4,
+    "university_names": ["КФУ", "НИУ ВШЭ", "ИТМО", "МФТИ"]
+  },
+  "route": {
+    "http_status": 200,
+    "items": 5,
+    "universities": 4,
+    "cities": 4,
+    "achievement_points": {
+      "КФУ": 8,
+      "НИУ ВШЭ": 7,
+      "ИТМО": 7,
+      "МФТИ": 6
+    }
+  },
+  "tests": {
+    "unit": "11/11 passed",
+    "typescript": "passed",
+    "vite_build": "passed"
+  }
+}
