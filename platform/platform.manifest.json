@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "0.1.0",
+  "platform": {
+    "id": "thr0ne7-ai-platform",
+    "name": "AI Platform",
+    "stage": "architecture-foundation"
+  },
+  "coreCapabilities": [
+    "ai-orchestrator",
+    "memory",
+    "rag-search",
+    "knowledge-base",
+    "authentication",
+    "billing",
+    "analytics",
+    "ui-system"
+  ],
+  "products": [
+    {"id": "proidu", "name": "PROIDU", "status": "active"},
+    {"id": "grant-ai", "name": "Grant AI", "status": "planned"},
+    {"id": "ai-factory", "name": "AI Factory", "status": "active"},
+    {"id": "agro-ai", "name": "Agro AI", "status": "planned"},
+    {"id": "tourism-ai", "name": "Tourism AI", "status": "planned"},
+    {"id": "education-ai", "name": "Education AI", "status": "planned"},
+    {"id": "gov-intelligence", "name": "Gov Intelligence", "status": "planned"}
+  ],
+  "qualityGates": [
+    "runability",
+    "evidence-lock",
+    "evaluation",
+    "repair-loop",
+    "security",
+    "ui-taste",
+    "deploy-safety"
+  ]
+}
