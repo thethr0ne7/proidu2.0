@@ -50,9 +50,10 @@ Russian citizens' personal data collected online must be initially recorded and 
 Do not send passport images, education documents or applicant profiles to foreign AI APIs by default. Redact or minimise documents before external processing and keep an auditable processing record.
 
 ## Official portals and integration boundary
-- Official Education in Russia portal: https://russia-edu.minobrnauki.gov.ru/
+- Official Education in Russia portal / IAC FRKP notice: https://russia-edu.minobrnauki.gov.ru/
+- Draft quota-service resolution dated 2 September 2026: https://base.garant.ru/57065365/ (draft only; proposed use from 14 October 2026 is not proof of legal force).
 - The public portal currently presents 2026 programme information and materials about preparation for the 2027/28 campaign.
-- A draft government resolution dated 2026-09-02 concerning a quota-admission service was found marked as unsigned. Treat it as a regulatory watch item, not an effective rule, until official publication and entry into force are verified.
+- The official Russia-edu portal currently displays an authorisation notice for the new IAC FRKP system. A draft government resolution prepared by Minobrnauki on 2026-09-02 proposes a quota-admission service integrated with ESIA/Gosuslugi and the federal admission information system; its text proposes use from 2026-10-14, but the document remains a draft in the source register. Treat it as a regulatory watch item, not an effective legal rule, until official publication, registration and entry into force are verified. PROIDU must not imitate or call private ESIA/Gosuslugi/FIS endpoints without formal authorisation.
 - Do not automate login, scrape private applicant accounts or call undocumented government endpoints. Link to official submission channels and store user-confirmed status, unless written API access is granted.
 
 ## Initial Global MVP
