@@ -3,6 +3,7 @@
 Observed on 2026-11-14 from the connected Supabase project. Counts are a point-in-time snapshot and will change as ingestion runs.
 
 ## Database and platform
+- Vercel inventory: one linked project, ai-platform-core, rooted at apps/web in the ai-platform-core repository; SSO-protected internal app with latest production deployment READY. It is not the proidu2.0 frontend.
 - PostgreSQL 17.6.
 - 133 public base tables.
 - 132 recorded migrations.
@@ -42,6 +43,13 @@ Only 11 institutions had verified program records in the inspected join, approxi
 - Other source kinds are pending in large batches.
 - One 2025 monitoring item is marked needs_review.
 - Queue completion and failure must be measured by institution and source kind.
+
+## Migration-source reconciliation
+- Live Supabase ledger: 132 migration records.
+- ai-platform-core repository: 58 migration SQL files; 49 names match the live ledger, 9 are not in the live ledger.
+- 83 live migration names are not represented in ai-platform-core.
+- proidu2.0 has two migration SQL files, neither name appears in the live ledger.
+- This is a distributed/incomplete migration history. It must be reconciled before any migration replay.
 
 ## Shared-system data excluded from PROIDU migration
 - 1,445 Government Intelligence source documents.
