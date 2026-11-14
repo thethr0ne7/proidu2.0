@@ -3,7 +3,7 @@
 ## Canonical location
 Use the existing proidu2.0 repository as the migration base because it contains the current React/Vite application and Supabase integration. This blueprint is isolated on branch proidu-4.0/engineering-blueprint. Do not replace main during this phase.
 
-The branch adds frozen snapshots of proidu and proidu-bot1.1 under legacy/. The empty proidu-bot repository contributes no source files. The current proidu2.0 application remains at its existing paths until the replacement API is ready.
+The branch adds frozen snapshots of proidu, proidu-bot1.1 and the PROIDU-specific vertical slice from ai-platform-core under legacy/. The empty proidu-bot repository contributes no source files. The current proidu2.0 application remains at its existing paths until the replacement API is ready. The generic AI Platform Core is a separate shared service and is not copied wholesale.
 
 ## Target monorepo
 - apps/russia-web — current apps/web after API client conversion.
@@ -39,6 +39,9 @@ The branch adds frozen snapshots of proidu and proidu-bot1.1 under legacy/. The 
 | proidu-bot1.1/assets | apps/telegram-miniapp | Reuse only after code review and refactor |
 | proidu manifests/audits | docs/archive/proidu-v3 or legacy/proidu | Preserve history, do not treat as executable |
 | proidu-bot | none | Empty source repository |
+| ai-platform-core/src/proidu-mai.ts and worker | services/ingestion/adapters/mai | Extract parser and worker contracts; replace Supabase persistence |
+| ai-platform-core/src/adapters/proidu.ts | packages/contracts + services/api | Replace system.echo transport proof with real OpenAPI admission API |
+| ai-platform-core generic orchestration | separate shared service | Keep outside PROIDU domain until other product dependencies are mapped; migrate Vercel runtime separately |
 
 ## Consolidation rules
 1. Never overwrite or delete the original repositories during consolidation.
