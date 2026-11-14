@@ -1,0 +1,25 @@
+import { readFileSync, statSync } from 'node:fs';
+const checks = [];
+function ok(name, condition){ checks.push([name, !!condition]); if(!condition) process.exitCode = 1; }
+const html = readFileSync('index.html','utf8');
+const js = readFileSync('assets/proidu-factory-data-gate.js','utf8');
+const css = readFileSync('assets/proidu-factory-data-gate.css','utf8');
+const state = readFileSync('src/factory-state.json','utf8');
+ok('Telegram SDK loaded', html.includes('telegram-web-app.js'));
+ok('Supabase search function wired', js.includes('/functions/v1/search'));
+ok('EGE route engine present', js.includes('EGE Route Engine') && js.includes('Найти по ЕГЭ'));
+ok('SPO route engine present', js.includes('SPO Route Engine') && js.includes('Построить маршрут после СПО'));
+ok('SPO Profile Gate present', js.includes('SPO Profile Gate') && state.includes('spo_profile_gate'));
+ok('SPO mapping table present', js.includes('SPO_SPECIALTIES') && js.includes('09.02.07'));
+ok('EGE fallback guard present', js.includes('ege_fallback') && js.includes('ложную уверенность'));
+ok('DATA Coverage Gate text present', js.includes('DATA Coverage Gate'));
+ok('Factory core loop present', js.includes('INPUT') && js.includes('SHIP'));
+ok('Second Ring present', js.includes('UI Taste Gate') && js.includes('Context Budget'));
+ok('HTTPS Autopilot present', js.includes('CERT AUTOMATION') && js.includes('HTTPS SHIP'));
+ok('No hardcoded fake success claim', !js.includes('все вузы уже работают'));
+ok('CSS exists', statSync('assets/proidu-factory-data-gate.css').size > 1000 && css.includes('--onyx'));
+ok('Index references JS', html.includes('proidu-factory-data-gate.js'));
+ok('Index references CSS', html.includes('proidu-factory-data-gate.css'));
+ok('Build is Pages-ready', html.includes('<div id="root"></div>'));
+for(const [name, pass] of checks) console.log(`${pass ? 'PASS' : 'FAIL'} ${name}`);
+if(process.exitCode) throw new Error('quality gates failed');
