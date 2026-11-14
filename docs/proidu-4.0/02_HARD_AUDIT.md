@@ -5,9 +5,17 @@ Audit date: 2026-11-14. Evidence was collected from connected GitHub repositorie
 ## Repository inventory
 - proidu: 10 tracked files. Package version 3.0.0 references scripts/build.mjs, scripts/test.mjs and scripts/data-gate-check.mjs, which are absent from that repository. Its README/manifests overstate what is executable.
 - proidu2.0: 45 tracked files. Contains the React/Vite application, two SQL migrations, three test files, Supabase functions and docs. No GitHub Actions workflow directory was present in the inspected tree.
-- proidu-bot1.1: 11 tracked files, including generated dist output. It is a static application with one large JavaScript bundle and string-presence tests.
+- proidu-bot1.1: 11 tracked files, including generated dist output. It is a static application with one large JavaScript bundle and string-presence tests. Its README describes a GitHub Pages workflow, but the inspected tree contains no .github/workflows files.
 - proidu-bot: empty repository.
+- ai-platform-core: 281 tracked files, including the Next.js web app, shared AI Factory/Government Intelligence runtime, 58 Supabase migration SQL files and a PROIDU-MAI ingestion prototype.
 - Live deployed Supabase functions are not byte-identical to GitHub source.
+
+## Vercel and AI Platform Core
+- The connected Vercel team has one project, ai-platform-core, linked to thethr0ne7/ai-platform-core; no Vercel project is linked directly to proidu2.0.
+- Vercel project root is apps/web, framework Next.js, with SSO protection and only vercel.app domains in the inspected project metadata. Latest production deployment is READY; project metadata reports live=false.
+- ai-platform-core contains a PROIDU adapter, MAI parser and Supabase worker, but the adapter routes to system.echo rather than the real admissions engine.
+- The MAI parser is hard-coded to one official MAI source and admission year 2026. The worker documentation describes a GitHub Actions schedule, but the repository has no .github/workflows directory.
+- The MAI worker expects claim_ingestion_job, data_versions, evidence_records and source_checkpoints. These are absent in the inspected live DB; platform_* equivalents exist instead. The 0001_proidu_ingestion migration is not in the live migration ledger.
 
 ## Live database facts
 - PostgreSQL 17.6.
