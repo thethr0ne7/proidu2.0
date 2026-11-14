@@ -55,6 +55,10 @@ Exit: SPO routes work from source evidence, not a generic guessed mapping.
 Exit: end-to-end test cases for each pilot market.
 
 ## Phase 7 — cutover and scale
+- Migrate the internal AI Platform Core Next.js application off Vercel as a separate service after its routes and AI Factory/GI dependencies pass inventory.
+- Keep its SSO boundary and verify all internal workflows before retiring the Vercel deployment.
+
+## Phase 8 — cutover and scale
 - Complete zero-loss migration and dual-run.
 - Switch frontend/API origin.
 - Keep legacy services read-only for the rollback window.
