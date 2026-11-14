@@ -1,0 +1,141 @@
+{
+  "name": "PROIDU AI Factory DATA Gate 2.0 Source Evidence Build",
+  "created_at": "2026-07-07T20:54:16.558363+00:00",
+  "status": "SHIP-CANDIDATE / SOURCE-EVIDENCE DATA GATE READY",
+  "factory_contours": [
+    "AI Factory 2.0",
+    "Second Ring",
+    "DATA Gate 2.0",
+    "Source Evidence Gate",
+    "Full Admission Route"
+  ],
+  "tracks": [
+    "budget_places",
+    "contract_track",
+    "target_education_track"
+  ],
+  "source_gate": [
+    "admission_sources",
+    "program_source_evidence",
+    "data_gate_program_status",
+    "ingestion_tasks"
+  ],
+  "checks": [
+    "npm run ship",
+    "npm run data-gate",
+    "node --check assets/proidu-factory-data-gate.js",
+    "node --check dist/assets/proidu-factory-data-gate.js"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/pages.yml",
+      "bytes": 628,
+      "sha256": "a9c823425e00ab083d2fbbfeba3cee516736e4948a7fd745ad0bdfaa010c8514"
+    },
+    {
+      "path": "AI_FACTORY_DATA_GATE_2_AUDIT.md",
+      "bytes": 4509,
+      "sha256": "c4f53a1804382d614d4d2a1ee3cc2c5b0c1690d2d4e323c158773e82aad68ebb"
+    },
+    {
+      "path": "AI_FACTORY_FULL_ROUTE_AUDIT.md",
+      "bytes": 3907,
+      "sha256": "21179a50469b5efd3a9f22ac770dde8e0e14767f3f2642a9afc2d4d4951572d5"
+    },
+    {
+      "path": "AI_FACTORY_HARD_AUDIT.md",
+      "bytes": 5751,
+      "sha256": "08f33ad64cc2f6541b53bf716193d5331f7e702d5950470a6c4247f79ae0e97c"
+    },
+    {
+      "path": "PROIDU_FULL_ROUTE_MANIFEST.json",
+      "bytes": 2788,
+      "sha256": "439aaf83c2db2554e582ae0549c656d9595e9443d788ffa5e02e2ada5d23f152"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6147,
+      "sha256": "c45040e5490c113456462e1371b0d2f07058f3aaba29f29fd0a471dccc64f9a0"
+    },
+    {
+      "path": "assets/proidu-factory-data-gate.css",
+      "bytes": 6629,
+      "sha256": "2a48d974498c402cb2b6b07a90924885f03c31dcb819b142505dae759a9f4075"
+    },
+    {
+      "path": "assets/proidu-factory-data-gate.js",
+      "bytes": 26976,
+      "sha256": "a38f28ab57538fc4122cb58f174ac18ed5ac1b4427073d289e580ba221bd4865"
+    },
+    {
+      "path": "dist/assets/proidu-factory-data-gate.css",
+      "bytes": 6629,
+      "sha256": "2a48d974498c402cb2b6b07a90924885f03c31dcb819b142505dae759a9f4075"
+    },
+    {
+      "path": "dist/assets/proidu-factory-data-gate.js",
+      "bytes": 26976,
+      "sha256": "a38f28ab57538fc4122cb58f174ac18ed5ac1b4427073d289e580ba221bd4865"
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 775,
+      "sha256": "d22a7b49dd42a797a58972462c76085303aacf7665e04f2a75d258a1fb86f7fc"
+    },
+    {
+      "path": "docs/DATA_GATE_SOURCE_EXTRACTION_SPEC.md",
+      "bytes": 4615,
+      "sha256": "ac43a0e3059f60cbfa365ee7a553f52e0071ab282ec57abf485f1218cd0cfe6a"
+    },
+    {
+      "path": "index.html",
+      "bytes": 775,
+      "sha256": "d22a7b49dd42a797a58972462c76085303aacf7665e04f2a75d258a1fb86f7fc"
+    },
+    {
+      "path": "package.json",
+      "bytes": 285,
+      "sha256": "c14d51cc4a24d8f569d57a2dc2b2bb7425a6243abb0c4d70ec74441ef9ae6574"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 292,
+      "sha256": "6eb8fe96d175a51d528306796245d96c00b99967f09083096b8933a687fb5d3e"
+    },
+    {
+      "path": "scripts/data-gate-check.mjs",
+      "bytes": 1623,
+      "sha256": "c06ccb7d2424289d5a75c521b0c963ea42900404f40317fca96fe1344f4ff608"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 3452,
+      "sha256": "9ae9657e0622546560119537289b124297fe0562b7accf229dbf6172377988d6"
+    },
+    {
+      "path": "src/data-gate-policy.json",
+      "bytes": 1852,
+      "sha256": "c574ad23462bf63de105238fac2c5894342ec969315a6941b49ce0feb36e8bfc"
+    },
+    {
+      "path": "src/factory-state.json",
+      "bytes": 1333,
+      "sha256": "256092e0fc9984bfacee35edbae4a80307889287120670a53df29fb9d180bc72"
+    },
+    {
+      "path": "supabase/analytics_events.sql",
+      "bytes": 2195,
+      "sha256": "11bc69a21b9e8f89d990396c1e0ee08f264116655ae4baa7fe5ffd3469e53175"
+    },
+    {
+      "path": "supabase/data_gate_sources.sql",
+      "bytes": 5105,
+      "sha256": "db27330fde8a602895f7219e592af68ecff83692e66ea30fe546d32f8f0ba368"
+    },
+    {
+      "path": "supabase/functions/ingest-admission-source/index.ts",
+      "bytes": 3648,
+      "sha256": "6cc9325d4781fbfdc77babb09034705adf684eb5b296f119fd6c9b783ca13e4c"
+    }
+  ]
+}

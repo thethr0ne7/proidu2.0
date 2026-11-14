@@ -1,0 +1,1 @@
+{"name":"proidu-factory-data-gate","version":"3.0.0","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","test":"node scripts/test.mjs","data-gate":"node scripts/data-gate-check.mjs","ship":"npm run build && npm test && npm run data-gate"},"devDependencies":{}}
