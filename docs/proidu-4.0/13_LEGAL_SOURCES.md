@@ -16,7 +16,7 @@ This is an engineering source register, not a legal opinion. Every rule must be 
 - Recognition of foreign education: 273-FZ article 107 and the applicable recognition register/process.
 - Official Education in Russia portal: https://russia-edu.minobrnauki.gov.ru/
 
-A draft government resolution dated 2 September 2026 concerning a quota-admission service was found marked as unsigned. A separate draft order prepared by Minobrnauki on 21 September 2026 proposes changes to Order 821 with a proposed effective date of 1 March 2027. Both are monitoring items only. Do not encode draft clauses as operative rules until official publication, registration and effective date are confirmed.
+A draft government resolution prepared by Minobrnauki on 2 September 2026 proposes a quota-admission service integrated with ESIA/Gosuslugi and the federal admission information system. The draft text proposes use from 14 October 2026, but its draft status means that date must not be treated as legal commencement without an officially published and registered act. A separate draft order prepared by Minobrnauki on 21 September 2026 proposes changes to Order 821 with a proposed effective date of 1 March 2027. Both are regulatory watch items only. Do not encode draft clauses as operative rules until official publication, registration and effective date are confirmed.
 
 ## Personal data
 - Federal Law 152-FZ, Personal Data.
@@ -39,6 +39,7 @@ A draft government resolution dated 2 September 2026 concerning a quota-admissio
 - Minobrnauki targeted admission campaign: https://minobrnauki.gov.ru/action/targeted_training/
 - Official foreign applicant portal: https://russia-edu.minobrnauki.gov.ru/
 - Current admission procedure 821: https://www.consultant.ru/document/cons_doc_LAW_491807/
+- Draft quota-admission service resolution, 2 September 2026: https://base.garant.ru/57065365/ (draft only; not an effective rule)
 - Draft 21 September 2026 changes to Order 821: https://base.garant.ru/57066662/ (draft only; not an effective rule)
 - 273-FZ article 78, foreign citizens: https://www.consultant.ru/document/cons_doc_LAW_140174/61481667d956e25b4c53b1febedf53ed1121e78c/
 - 152-FZ article 18: https://www.consultant.ru/document/Cons_doc_LAW_61801/cbf4e15b7c330f9372e876cdf2bc928bad7950ef/
