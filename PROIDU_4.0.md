@@ -27,10 +27,12 @@ Status: architecture and migration blueprint. This branch does not modify produc
 - docs/proidu-4.0/13_LEGAL_SOURCES.md — legal and official source register.
 - docs/proidu-4.0/14_LIVE_DATA_SNAPSHOT.md — observed database metrics.
 - docs/proidu-4.0/15_SCHEMA_EXTRACTION.md — how to produce the real migration baseline.
+- docs/proidu-4.0/16_AI_PLATFORM_CORE_INTEGRATION.md — Vercel inventory, MAI worker audit and shared-platform boundary.
 
 ## Source snapshots
 - legacy/proidu — frozen copy of the standalone PROIDU repository.
 - legacy/proidu-bot1.1 — frozen copy of the Telegram/static prototype.
+- legacy/ai-platform-core-proidu — frozen copy of the PROIDU-specific MAI vertical and its direct test/persistence dependencies.
 - proidu-bot — source repository was empty at audit time.
 - Current proidu2.0 files remain at repository root and under apps/web, docs, scripts and supabase.
 
