@@ -1,0 +1,20 @@
+{
+  "name": "PROIDU AI Factory Supreme Route Build",
+  "version": "3.0.0",
+  "status": "SHIP-CANDIDATE",
+  "layers": [
+    "DATA Gate 3.0",
+    "Source Evidence Gate",
+    "Gosuslugi Route Layer",
+    "Applicant Scenario Gate",
+    "Budget Track",
+    "Contract Track",
+    "Target Track",
+    "Documents Checklist",
+    "Additional Test Gate",
+    "Priority Admission Gate",
+    "Enrollment Monitor",
+    "Growth Share Loop"
+  ],
+  "created_at": "2026-07-07T21:10:49.165Z"
+}
