@@ -1,0 +1,16 @@
+# Credentials / local working tree
+.env
+.env.*
+!.env.example
+!.env.timeweb.example
+*.pem
+*.key
+*.p12
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+node_modules/
+dist/
+coverage/
+*.log
