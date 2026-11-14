@@ -44,7 +44,7 @@ def test_client():
         conn.execute(
             """INSERT INTO public.programs(id,institution_id,code,title,admission_year,
                   verification_status,source_id)
-               SELECT format('00000000-0000-0000-0000-%s',lpad(to_hex(n),12,'0'))::uuid,
+               SELECT format('00000000-0000-0000-0000-%%s',lpad(to_hex(n),12,'0'))::uuid,
                       %s::uuid,'09.03.04','CI Test Program '||n,2026,'verified',%s::uuid
                FROM generate_series(1,520) n ON CONFLICT(id) DO NOTHING""",
             (TEST_INST, TEST_SOURCE),
