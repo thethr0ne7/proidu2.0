@@ -9,6 +9,8 @@ The live Supabase database contains 133 public tables and 132 migrations. It is 
 Observed PROIDU-related counts include 751 institutions, 82 programs, 80 offers, 82 exam sets, 361 exam requirements, 27 sources, 88 source-registry rows, 6,008 ingestion jobs and 11,221 queue rows. Supabase Auth has zero users/identities/sessions; payment_intents and university_check_requests are empty. The only storage bucket is gi-project-documents and belongs to another workflow.
 
 ## Phase 0 — freeze and inventory
+- Inventory the Vercel ai-platform-core project separately from the PROIDU frontend. Record root directory apps/web, SSO protection, domains, production deployment and all runtime routes.
+- Inventory ai-platform-core Supabase SDK use, Edge Functions, scheduled jobs and the PROIDU-MAI worker. Do not assume the MAI scheduled worker is active.
 - Freeze schema changes in the legacy PROIDU area.
 - Record Supabase project ID, PostgreSQL version, extensions, roles, grants, policies, functions, triggers, views, cron jobs, Edge Function versions and secrets inventory.
 - Capture GitHub branch and commit SHAs.
@@ -26,6 +28,7 @@ Observed PROIDU-related counts include 751 institutions, 82 programs, 80 offers,
 - Record checksums and backup timestamps.
 
 ## Phase 2 — target environment
+- Provision a separate internal-service staging deployment for the AI Platform Core Next.js app; do not merge it into the public PROIDU frontend until product ownership and dependencies are approved.
 - Provision Russian-region PostgreSQL 17.
 - Enable only required extensions and create least-privilege roles.
 - Create private network, application servers, worker servers, RabbitMQ, Valkey and private S3 buckets.
