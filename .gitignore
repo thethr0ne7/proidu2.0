@@ -14,3 +14,12 @@ node_modules/
 dist/
 coverage/
 *.log
+
+# Never publish production database exports or client credentials
+*.dump
+*.backup
+*.sql.gz
+*.age
+*.qcow2
+.pgpass
+pg_service.conf

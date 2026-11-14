@@ -60,6 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate private export script syntax
+        run: bash -n scripts/backup_proidu_source.sh
       - name: Validate Timeweb deployment compose
         run: docker compose --env-file .env.timeweb.example -f infra/timeweb/compose.yml config --quiet
       - name: Validate local PostgreSQL compose
