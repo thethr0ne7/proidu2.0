@@ -1,7 +1,7 @@
 # 15. Schema extraction and migration baseline
 
 ## Why the current GitHub SQL is insufficient
-The current proidu2.0 repository contains two SQL migration files. The live Supabase project reports 132 migrations and 133 public base tables. The live schema has continued to evolve beyond the checked-in files. Replaying the two files on a clean database will not reproduce production.
+The proidu2.0 repository contains two SQL migration files; neither migration name appears in the live ledger. The separate ai-platform-core repository contains 58 migration SQL files, of which 49 names match the live ledger and 9 are not present in it. The live Supabase project reports 132 migrations and 133 public base tables; 83 live migration names are not represented in ai-platform-core. The history is distributed across repositories and likely includes manually applied or other-source migrations. Replaying any one repository's migration folder will not reproduce production.
 
 ## Required source artefacts
 From a read-only database connection, collect:
@@ -73,4 +73,4 @@ Source extensions:
 - plpgsql: built into PostgreSQL.
 
 ## Output
-The result of this phase is a reviewed, reproducible baseline migration and a machine-readable mapping manifest. It is not acceptable to invent SQL from partial snippets or to run the new migration against the existing Supabase production database.
+The result of this phase is a reviewed, reproducible baseline migration and a machine-readable mapping manifest. Compare live migration names with both proidu2.0 and ai-platform-core before approving the allowlist. Archive the complete ai-platform-core migration folder as reference, but do not replay its AI Factory/GI migrations into the PROIDU database. It is not acceptable to invent SQL from partial snippets or to run the new migration against the existing Supabase production database.
