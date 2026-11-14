@@ -1,0 +1,12 @@
+{
+  "build": "PROIDU_ROUTE_ENGINE_SPO_BUILD",
+  "factory": "AI Factory 2.0",
+  "core_loop": ["INPUT", "PLAN", "PRODUCE", "CHECK", "FIX", "SAVE", "SHIP"],
+  "core_contours": ["Repo Intake", "Evidence-Locked Extraction", "Evaluation", "Stateful Control", "Repair", "Factory Memory", "Defensive Security"],
+  "second_ring_amplifiers": ["UI Taste Gate", "Compound Skill Loop", "Recent Signal Radar", "Context Budget"],
+  "deploy_safety_amplifier": ["APP READY", "DOMAIN CHECK", "CERT AUTOMATION", "SECRET SCAN", "RENEWAL TEST", "HTTPS SHIP"],
+  "data_coverage_gate": "Вуз появляется в подборе только после загрузки программ, экзаменов, мест и источников. Каталог шире поиска.",
+  "spo_profile_gate": "Маршрут после СПО появляется только после подтверждения профильности, внутренних экзаменов и источника конкретного вуза. Если профиль не подтверждён, показывается ЕГЭ fallback.",
+  "supabase_needed_actions": ["programs", "spo_routes"],
+  "needed_tables": ["spo_specialties", "spo_to_bachelor_mapping", "admission_rules_spo", "university_internal_exams", "program_exam_modes", "required_documents_spo", "source_ledger"]
+}
