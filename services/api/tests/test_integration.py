@@ -74,6 +74,7 @@ def test_client():
     with TestClient(app) as client:
         yield client
     with psycopg.connect(DB) as conn:
+        conn.execute("DELETE FROM public.spo_admission_rules WHERE source_id=%s::uuid", (TEST_SOURCE,))
         conn.execute("DELETE FROM public.institutions WHERE id=%s::uuid", (TEST_INST,))
         conn.execute("DELETE FROM public.regions WHERE id=%s", (TEST_REGION,))
 
