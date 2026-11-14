@@ -3,7 +3,7 @@ import {
   buildFullRoute,
   createFullRouteInvoice,
   getFederalCoverage,
-  searchFederalPrograms,
+  searchFederalProgramPage,
   type AchievementInput,
   type FederalCoverage,
   type FederalProgramResult,
@@ -70,6 +70,8 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
   const [scores, setScores] = useState<Record<SubjectKey, number>>({ ...DEFAULT_SCORES });
   const [scoreMode, setScoreMode] = useState<ScoreMode>('all');
   const [results, setResults] = useState<FederalProgramResult[]>([]);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [limitedByScan, setLimitedByScan] = useState(false);
   const [coverageInfo, setCoverageInfo] = useState<FederalCoverage | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -99,13 +101,14 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
     return current.length >= 4 ? current : [...current, subject];
   });
 
-  const run = async () => {
+  const run = async (cursor?: string | null) => {
     setLoading(true);
     setError('');
     setRoute(null);
     setSearched(true);
+    if (!cursor) setNextCursor(null);
     try {
-      const data = await searchFederalPrograms({
+      const page = await searchFederalProgramPage({
         query,
         region,
         totalScore: total,
@@ -115,10 +118,13 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
         year: 2026,
         scoreMode,
         limit: 200,
+        ...(cursor ? {cursor} : {}),
       });
-      setResults(data);
+      setResults((current) => cursor ? [...current, ...page.data.filter((x) => !current.some((y) => y.program_id === x.program_id))] : page.data);
+      setNextCursor(page.meta.next_cursor);
+      setLimitedByScan(page.meta.limited_by_scan);
     } catch (e) {
-      setResults([]);
+      if (!cursor) setResults([]);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -131,7 +137,7 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
     setError('');
     try {
       setRoute(await buildFullRoute({
-        programIds: results.map((item) => item.program_id),
+        programIds: results.slice(0, 50).map((item) => item.program_id),
         scores: selectedScores,
         totalScore: total,
         achievements,
@@ -164,7 +170,7 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
   return (
     <section className="form-section panel-enter federal-search">
       <button className="back-link" onClick={onBack}>← Назад</button>
-      <div className="step-label">FEDERAL DATA CORE · LIVE</div>
+      <div className="step-label">FEDERAL DATA CORE · TEST BUILD</div>
       <h2>Куда я могу поступить?</h2>
       <p className="inline-hint">
         Укажи реальные баллы по предметам. Для каждой программы система отдельно проверит обязательные ЕГЭ, альтернативы и минимальные пороги.
@@ -232,7 +238,7 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
         </div>
       </div>
 
-      <button className="primary-button" onClick={run} disabled={loading || !validInput}>
+      <button className="primary-button" onClick={() => void run()} disabled={loading || !validInput}>
         {loading ? 'Проверяем все программы…' : 'Показать варианты'} <span>→</span>
       </button>
 
@@ -246,7 +252,7 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
             <div><strong>{resultCoverage.cities}</strong><span>городов</span></div>
             <div><strong>{resultCoverage.regions}</strong><span>регионов</span></div>
           </div>
-          <p className="result-explainer">Показаны все совместимые программы из проверенного конкурсного слоя, а не только один вуз.</p>
+          <p className="result-explainer">Показаны загруженные страницы совместимых программ. Это не полный федеральный охват; источник, полнота и год требуют проверки.</p>
         </>
       )}
 
@@ -285,6 +291,9 @@ export function FederalSearch({ onBack }: { onBack: () => void }) {
           );
         })}
       </div>
+
+      {nextCursor && <button className="secondary-button" onClick={() => void run(nextCursor)} disabled={loading}>Загрузить следующую страницу результатов</button>}
+      {limitedByScan && <p className="field-note">Достигнут предел сканирования одного запроса; продолжите поиск через следующую страницу.</p>}
 
       {results.length > 0 && (
         <section className="route-lab">

@@ -113,75 +113,63 @@ export interface FullRouteResponse {
   disclaimer: string;
 }
 
-const SEARCH_FALLBACK = 'https://hgivyjjethjwswjrvroy.supabase.co/functions/v1/search';
-const ROUTE_FALLBACK = 'https://hgivyjjethjwswjrvroy.supabase.co/functions/v1/route';
-const PAYMENT_FALLBACK = 'https://hgivyjjethjwswjrvroy.supabase.co/functions/v1/telegram-payments';
+// Same-origin API; Vite proxies /api locally and Timeweb reverse-proxies it in production.
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || '/api/v1';
 
-function getSearchEndpoint(): string {
-  return (import.meta.env.VITE_SEARCH_FUNCTION_URL as string | undefined) || SEARCH_FALLBACK;
+export interface SearchPage {
+  data: FederalProgramResult[];
+  meta: { count: number; next_cursor: string | null; limited_by_scan: boolean; ranking_scope: string };
 }
 
-function publicHeaders(): Record<string, string> {
-  const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
-  return {
-    'content-type': 'application/json',
-    ...(key ? { apikey: key, authorization: `Bearer ${key}` } : {}),
-  };
-}
-
-async function postSearch<T>(payload: unknown): Promise<T> {
-  const response = await fetch(getSearchEndpoint(), {
-    method: 'POST',
-    headers: publicHeaders(),
-    body: JSON.stringify(payload),
+async function postApi<T>(path: string, payload: unknown): Promise<T> {
+  const response = await fetch(API_BASE + path, {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload),
   });
   const json = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(json.error ?? 'Ошибка федерального API');
+  if (!response.ok) throw new Error(json.detail ?? json.error ?? 'Ошибка API PROIDU');
   return json as T;
 }
 
-export async function searchFederalPrograms(params: FederalSearchParams): Promise<FederalProgramResult[]> {
-  const json = await postSearch<{ data?: FederalProgramResult[] }>({
-    action: 'programs',
-    scoreMode: 'route',
-    ambitiousGap: 20,
-    limit: 200,
-    ...params,
+export async function searchFederalProgramPage(params: FederalSearchParams & { cursor?: string }): Promise<SearchPage> {
+  return postApi<SearchPage>('/search', {
+    action: 'programs', scoreMode: 'route', ambitiousGap: 20, limit: 200, ...params,
   });
-  return json.data ?? [];
+}
+
+export async function searchFederalPrograms(params: FederalSearchParams): Promise<FederalProgramResult[]> {
+  return (await searchFederalProgramPage(params)).data;
 }
 
 export async function getFederalCoverage(): Promise<FederalCoverage | null> {
-  const json = await postSearch<{ data?: FederalCoverage | null }>({ action: 'coverage' });
-  return json.data ?? null;
+  const response = await postApi<{data: FederalCoverage | null}>('/search', {action:'coverage',year:2026});
+  return response.data;
 }
 
 export async function buildFullRoute(payload: {
-  programIds: string[];
-  scores: Record<string, number>;
-  totalScore?: number;
-  achievements: AchievementInput;
-  year?: number;
+  programIds: string[]; scores: Record<string, number>; totalScore?: number;
+  achievements: AchievementInput; year?: number;
 }): Promise<FullRouteResponse> {
-  const endpoint = (import.meta.env.VITE_ROUTE_FUNCTION_URL as string | undefined) || ROUTE_FALLBACK;
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: publicHeaders(),
-    body: JSON.stringify({ year: 2026, ...payload }),
-  });
-  const json = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(json.error ?? 'Не удалось построить маршрут');
-  return json.data;
+  const response = await postApi<{data: FullRouteResponse}>('/route', { year:2026, ...payload });
+  return response.data;
 }
 
-export async function createFullRouteInvoice(payload: unknown): Promise<string> {
-  const endpoint = (import.meta.env.VITE_PAYMENT_FUNCTION_URL as string | undefined) || PAYMENT_FALLBACK;
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ action: 'create_invoice', payload }),
-  });
-  const json = await response.json().catch(() => ({}));
-  if (!response.ok || !json.invoiceUrl) throw new Error(json.error ?? 'Не удалось создать счёт');
-  return json.invoiceUrl;
+export interface SpoRouteResult {
+  program_id: string; code: string; title: string; profile_title?: string | null;
+  institution_name: string; institution_short_name?: string | null;
+  city?: string | null; region_name?: string | null; route_type: string;
+  internal_exams: string[]; source_url: string; verification_status: 'verified';
+}
+export interface SpoRoutePage {
+  data: SpoRouteResult[];
+  meta: {count:number; fallback: string | null; warning: string | null; year:number};
+}
+
+export async function searchSpoRoutes(params: {
+  spoCode: string; query?: string; region?: string; year?:number;
+}): Promise<SpoRoutePage> {
+  return postApi<SpoRoutePage>('/spo/routes', {year:2026, ...params});
+}
+
+export async function createFullRouteInvoice(_payload: unknown): Promise<string> {
+  throw new Error('Платежи отключены до запуска защищённого платёжного контура.');
 }

@@ -62,7 +62,7 @@ export function NationalCatalog({ onBack }: NationalCatalogProps) {
     haptic('medium');
     setStatus('loading');
     setAllEntries([]);
-    setMessage('Загружаем регионы по очереди. Списки сохраняются на устройстве.');
+    setMessage('Загружаем регионы из серверного каталога.');
     let loadedRegions = 0;
     let failedRegions = 0;
     const combined: UniversityCatalogEntry[] = [];
@@ -112,12 +112,12 @@ export function NationalCatalog({ onBack }: NationalCatalogProps) {
       <div className="eyebrow">Национальный каталог</div>
       <h2>Все вузы России</h2>
       <p className="catalog-lead">
-        Выбери регион и найди вуз или филиал по названию. Список загружается из официального мониторинга высшего образования 2025 года.
+        Выбери регион и найди вуз или филиал по названию. Список загружается из серверной базы PROIDU. Актуальность зависит от проверки источников.
       </p>
 
       <div className="catalog-summary">
         <div><strong>89</strong><span>регионов</span></div>
-        <div><strong>1 257</strong><span>организаций и филиалов в мониторинге</span></div>
+        <div><strong>{visibleEntries.length}</strong><span>в текущем результате</span></div>
       </div>
 
       <div className="field-block">
