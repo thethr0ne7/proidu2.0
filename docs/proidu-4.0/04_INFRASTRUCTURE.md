@@ -33,6 +33,10 @@ Selectel offers cloud servers, S3, managed Kubernetes, Redis and managed Postgre
 Cloud.ru has managed PostgreSQL, Redis, Object Storage, Container Apps, Kubernetes, API Gateway and security products. Its Container Apps documentation states that Container Apps does not support connecting to Managed PostgreSQL. A VM or Kubernetes-based topology may work, but it adds avoidable integration work for this first migration.
 
 ## Vercel replacement
+The connected Vercel account has one project, ai-platform-core, linked to the separate ai-platform-core repository. Its project root is apps/web (Next.js), it is SSO-protected and the inspected domains are Vercel-hosted. This is an internal AI Platform Core/AI Factory application, not the public PROIDU admissions frontend. The repo contains PROIDU-MAI ingestion code, but that worker is not proven live. Do not delete or pause the Vercel project as part of the first PROIDU cutover.
+
+For the Vercel exit, containerize the Next.js app from apps/web and deploy it to the same Russian infrastructure as a separate internal service. Move any root Node API/worker process into explicit containers only after confirming whether it is currently deployed. Replace Supabase SDK calls with the new API/repository layer. Preserve SSO using OIDC/Keycloak, VPN or an authenticated reverse proxy. Test all AI Factory/GI routes before retiring Vercel.
+
 Do not deploy the Russian applicant product on a foreign serverless frontend platform. Build the frontend as static assets and serve it from the same Russian origin or a domestic CDN after connectivity tests. Run API and workers as Docker containers. Keep the application portable so the same image can be moved between Timeweb, Yandex Cloud, Selectel or a private server.
 
 ## Cloudflare
