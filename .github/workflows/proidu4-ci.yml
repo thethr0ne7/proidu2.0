@@ -55,3 +55,12 @@ jobs:
         run: npm test
       - name: Production typecheck and build
         run: npm run build
+
+  infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Timeweb deployment compose
+        run: docker compose --env-file .env.timeweb.example -f infra/timeweb/compose.yml config --quiet
+      - name: Validate local PostgreSQL compose
+        run: docker compose -f infra/timeweb/compose.dev-postgres.yml config --quiet
