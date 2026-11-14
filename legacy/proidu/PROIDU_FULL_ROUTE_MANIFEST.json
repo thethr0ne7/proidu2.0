@@ -1,0 +1,92 @@
+{
+  "name": "PROIDU Full Admission Route Build",
+  "created_at": "2026-07-07T00:00:00+02:00",
+  "status": "SHIP-CANDIDATE / FULL ROUTE P1 READY",
+  "tracks": [
+    "budget_places",
+    "contract_track",
+    "target_education_track"
+  ],
+  "checks": [
+    "npm run ship",
+    "node --check assets/proidu-factory-data-gate.js",
+    "node --check dist/assets/proidu-factory-data-gate.js"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/pages.yml",
+      "bytes": 628,
+      "sha256": "a9c823425e00ab083d2fbbfeba3cee516736e4948a7fd745ad0bdfaa010c8514"
+    },
+    {
+      "path": "AI_FACTORY_FULL_ROUTE_AUDIT.md",
+      "bytes": 3907,
+      "sha256": "21179a50469b5efd3a9f22ac770dde8e0e14767f3f2642a9afc2d4d4951572d5"
+    },
+    {
+      "path": "AI_FACTORY_HARD_AUDIT.md",
+      "bytes": 5751,
+      "sha256": "08f33ad64cc2f6541b53bf716193d5331f7e702d5950470a6c4247f79ae0e97c"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4187,
+      "sha256": "5f732d7aeed13f7b304d779f8eb622151e1d562175024d08c0c7ef4facb20e45"
+    },
+    {
+      "path": "assets/proidu-factory-data-gate.css",
+      "bytes": 6629,
+      "sha256": "2a48d974498c402cb2b6b07a90924885f03c31dcb819b142505dae759a9f4075"
+    },
+    {
+      "path": "assets/proidu-factory-data-gate.js",
+      "bytes": 25910,
+      "sha256": "6e4a5e91223a88bb137fd768af20826ab30c5c197b5d713757c91916fc381efa"
+    },
+    {
+      "path": "dist/assets/proidu-factory-data-gate.css",
+      "bytes": 6629,
+      "sha256": "2a48d974498c402cb2b6b07a90924885f03c31dcb819b142505dae759a9f4075"
+    },
+    {
+      "path": "dist/assets/proidu-factory-data-gate.js",
+      "bytes": 25910,
+      "sha256": "6e4a5e91223a88bb137fd768af20826ab30c5c197b5d713757c91916fc381efa"
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 775,
+      "sha256": "d22a7b49dd42a797a58972462c76085303aacf7665e04f2a75d258a1fb86f7fc"
+    },
+    {
+      "path": "index.html",
+      "bytes": 775,
+      "sha256": "d22a7b49dd42a797a58972462c76085303aacf7665e04f2a75d258a1fb86f7fc"
+    },
+    {
+      "path": "package.json",
+      "bytes": 217,
+      "sha256": "9130c2e77bd3cb2391583251252ab769dbb3f8b877638921955af7596318e80c"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 292,
+      "sha256": "6eb8fe96d175a51d528306796245d96c00b99967f09083096b8933a687fb5d3e"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 3033,
+      "sha256": "9f31db98716459b41f58ad1bf3f73696b073da35161d9331eed67da7f8582491"
+    },
+    {
+      "path": "src/factory-state.json",
+      "bytes": 1333,
+      "sha256": "256092e0fc9984bfacee35edbae4a80307889287120670a53df29fb9d180bc72"
+    },
+    {
+      "path": "supabase/analytics_events.sql",
+      "bytes": 2195,
+      "sha256": "11bc69a21b9e8f89d990396c1e0ee08f264116655ae4baa7fe5ffd3469e53175"
+    }
+  ]
+}
