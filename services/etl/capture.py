@@ -43,6 +43,9 @@ SOURCE_TABLES = (
 )
 PRIVATE_TABLES = ("payment_intents", "university_check_requests")
 # Table order respects source FKs, except self-reference in institutions.
+SENSITIVE_TABLES = frozenset(('payment_intents', 'university_check_requests'))
+CAPTURE_TABLES = tuple(t for t in SOURCE_TABLES if t not in SENSITIVE_TABLES)
+
 PROMOTE_TABLES = (
     "regions", "institutions", "sources", "programs", "admission_offers",
     "exam_sets", "exam_requirements", "cutoff_history",
@@ -79,6 +82,8 @@ def checked_tables(value: str) -> tuple[str, ...]:
         raise ValueError("Choose nonempty, unique table names")
     if set(names) - set(SOURCE_TABLES):
         raise ValueError("Disallowed table name in source allowlist")
+    if set(names) & SENSITIVE_TABLES:
+        raise ValueError("Private applicant/payment tables require separate audited migration")
     return names
 
 
@@ -116,7 +121,7 @@ def check_target(conn: psycopg.Connection, expected: str) -> None:
 
 
 def capture(source_url: str, target_url: str, target_name: str,
-            tables: tuple[str, ...] = SOURCE_TABLES) -> dict:
+            tables: tuple[str, ...] = CAPTURE_TABLES) -> dict:
     batch_id = uuid4()
     with psycopg.connect(source_url, autocommit=True, row_factory=dict_row) as src, \
          psycopg.connect(target_url, autocommit=True, row_factory=dict_row) as dest:
@@ -264,7 +269,7 @@ def main() -> None:
     parser.add_argument("command", choices=("capture", "verify", "promote"))
     parser.add_argument("--batch-id")
     parser.add_argument("--expected-target-db", required=True)
-    parser.add_argument("--tables", default=",".join(SOURCE_TABLES))
+    parser.add_argument("--tables", default=",".join(CAPTURE_TABLES))
     parser.add_argument("--approval", default="")
     args = parser.parse_args()
     target_url = os.environ["DATABASE_URL"]
