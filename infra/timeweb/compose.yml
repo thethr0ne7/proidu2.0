@@ -37,6 +37,21 @@ services:
       PROIDU_COLLECTOR_INTERVAL_SECONDS: ${PROIDU_COLLECTOR_INTERVAL_SECONDS:-120}
     networks:
       - proidu_internal
+  factory-bridge:
+    profiles:
+      - factory-bridge
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    command: ["uvicorn", "services.bridge.app:app", "--host", "0.0.0.0", "--port", "8080"]
+    restart: unless-stopped
+    environment:
+      AI_BRIDGE_DATABASE_URL: ${AI_BRIDGE_DATABASE_URL:?set restricted bridge DSN}
+      AI_FACTORY_SHARED_SECRET: ${AI_FACTORY_SHARED_SECRET:?set 32+ character HMAC secret}
+    expose:
+      - "8080"
+    networks:
+      - proidu_internal
   gateway:
     image: caddy:2
     restart: unless-stopped
