@@ -80,10 +80,10 @@ def checked_tables(value: str) -> tuple[str, ...]:
     names = tuple(item.strip() for item in value.split(",") if item.strip())
     if not names or len(names) != len(set(names)):
         raise ValueError("Choose nonempty, unique table names")
-    if set(names) - set(SOURCE_TABLES):
-        raise ValueError("Disallowed table name in source allowlist")
     if set(names) & SENSITIVE_TABLES:
         raise ValueError("Private applicant/payment tables require separate audited migration")
+    if set(names) - set(SOURCE_TABLES):
+        raise ValueError("Disallowed table name in source allowlist")
     return names
 
 
