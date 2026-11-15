@@ -26,14 +26,14 @@
 | Ingestion, Global and Factory schema | data/migrations/0003_import_collect_global.sql | Clean PostgreSQL 17 only |
 | Source-compatible historical PROIDU registry tables | data/migrations/0003_proidu_legacy_ingestion.sql | Evaluate against source DDL before loading |
 | Foreign applicants to Russian institutions | data/migrations/0005_foreign_applicants.sql | Legal-source review, country/year scoping |
-| AI Factory bridge | services/api/factory_bridge.py | Private network, signed messages, separate writer |
+| AI Factory bridge | services/bridge/app.py | Private network, signed messages, separate writer |
 | Web/API | apps/web and services/api | CI green; staging load tests outstanding |
 
 ### Critical interpretation: Global
 Global means foreign applicants applying to Russian universities/colleges. This is NOT an international catalogue of foreign universities. Admission rights must be keyed by nationality, admission campaign, educational level, institution and verified rule source. Default 'unknown' must not be displayed as eligibility.
 
 ### AI Factory integration
-The AI Factory remains its own service and data store. Bridge schemas and signed internal response handler are prepared; **this is NOT a live API connection**. The factory can propose evidence or return classification, never self-authorize VERIFIED admissions rules. Need private connectivity, HMAC key, restricted DB role, operator-approved source registration, audit and threat review.
+The AI Factory remains its own service and data store. Bridge schemas and a dedicated HMAC+nonce event-intake service are prepared and not exposed through public Caddy; **this is NOT a live API connection**. The factory can propose evidence or return classification, never self-authorize VERIFIED admissions rules. Need private connectivity, HMAC key, restricted DB role, operator-approved source registration, audit and threat review.
 
 ### Data migration gates
 1. Read-only full pg_dump schema + separate whole-source DR backup; store privately/encrypted, perform restore drill.
