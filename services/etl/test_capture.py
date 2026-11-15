@@ -19,6 +19,10 @@ def test_digest_is_stable_and_disallowed_source_rejected():
         checked_tables("regions,gi_projects")
     with pytest.raises(ValueError, match="Disallowed"):
         checked_tables("af_events")
+    with pytest.raises(ValueError, match="Private"):
+        checked_tables("regions,payment_intents")
+    with pytest.raises(ValueError, match="Private"):
+        checked_tables("regions,university_check_requests")
 
 
 @pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="Needs disposable PostgreSQL 17")
