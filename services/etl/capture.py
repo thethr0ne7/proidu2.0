@@ -37,10 +37,11 @@ SOURCE_TABLES = (
     "institution_monitoring_metrics", "institution_ugs_groups",
     "ingestion_queue", "institution_source_registry", "factory_runs",
     "source_registry", "ingestion_jobs", "extraction_evidence",
-    "coverage_snapshots", "payment_intents", "university_check_requests",
+    "coverage_snapshots",
     "platform_ingestion_jobs", "platform_data_versions",
     "platform_evidence_records", "platform_source_checkpoints",
 )
+PRIVATE_TABLES = ("payment_intents", "university_check_requests")
 # Table order respects source FKs, except self-reference in institutions.
 PROMOTE_TABLES = (
     "regions", "institutions", "sources", "programs", "admission_offers",
