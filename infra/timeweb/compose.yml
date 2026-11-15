@@ -22,6 +22,21 @@ services:
       - "80"
     networks:
       - proidu_internal
+  collector:
+    profiles:
+      - collectors
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    command: ["python", "-m", "services.workers.runner"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set managed PG17 app DSN}
+      PROIDU_COLLECTOR_ENABLED: ${PROIDU_COLLECTOR_ENABLED:-false}
+      PROIDU_COLLECTOR_ONCE: "false"
+      PROIDU_COLLECTOR_INTERVAL_SECONDS: ${PROIDU_COLLECTOR_INTERVAL_SECONDS:-120}
+    networks:
+      - proidu_internal
   gateway:
     image: caddy:2
     restart: unless-stopped
