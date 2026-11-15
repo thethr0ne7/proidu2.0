@@ -1,0 +1,25 @@
+# Credentials / local working tree
+.env
+.env.*
+!.env.example
+!.env.timeweb.example
+*.pem
+*.key
+*.p12
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+node_modules/
+dist/
+coverage/
+*.log
+
+# Never publish production database exports or client credentials
+*.dump
+*.backup
+*.sql.gz
+*.age
+*.qcow2
+.pgpass
+pg_service.conf

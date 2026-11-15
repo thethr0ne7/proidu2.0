@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FederalSearch } from './components/FederalSearch';
+import { SpoSearch } from './components/SpoSearch';
 import { NationalCatalog } from './components/NationalCatalog';
 import { initTelegram } from './lib/telegram';
 import './styles.css';
 
-type AppStep = 'hero' | 'catalog' | 'federal';
+type AppStep = 'hero' | 'catalog' | 'federal' | 'spo';
 
 export default function App() {
   const [step, setStep] = useState<AppStep>('hero');
@@ -43,6 +44,7 @@ export default function App() {
           <button className="primary-button pulse" onClick={() => setStep('federal')}>
             Проверить свои баллы <span>→</span>
           </button>
+          <button className="secondary-button hero-secondary" onClick={() => setStep('spo')}>Маршрут после колледжа / СПО</button>
           <button className="secondary-button hero-secondary" onClick={() => setStep('catalog')}>
             Найти вуз по названию
           </button>
@@ -61,6 +63,7 @@ export default function App() {
 
       {step === 'catalog' && <NationalCatalog onBack={() => setStep('hero')} />}
       {step === 'federal' && <FederalSearch onBack={() => setStep('hero')} />}
+      {step === 'spo' && <SpoSearch onBack={() => setStep('hero')} />}
     </main>
   );
 }

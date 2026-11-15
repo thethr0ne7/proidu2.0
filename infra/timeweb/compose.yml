@@ -1,0 +1,77 @@
+# Managed Timeweb PostgreSQL is external to this application compose stack.
+# Run from repository root with --env-file .env.timeweb.
+services:
+  api:
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in local .env.timeweb}
+      PG_POOL_MAX: ${PG_POOL_MAX:-5}
+    expose:
+      - "8000"
+    networks:
+      - proidu_internal
+  web:
+    build:
+      context: ../..
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - proidu_internal
+  collector:
+    profiles:
+      - collectors
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    command: ["python", "-m", "services.workers.runner"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${PROIDU_COLLECTOR_DATABASE_URL:-}
+      PROIDU_COLLECTOR_ENABLED: ${PROIDU_COLLECTOR_ENABLED:-false}
+      PROIDU_COLLECTOR_ONCE: "false"
+      PROIDU_COLLECTOR_INTERVAL_SECONDS: ${PROIDU_COLLECTOR_INTERVAL_SECONDS:-120}
+    networks:
+      - proidu_internal
+  factory-bridge:
+    profiles:
+      - factory-bridge
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    command: ["uvicorn", "services.bridge.app:app", "--host", "0.0.0.0", "--port", "8080"]
+    restart: unless-stopped
+    environment:
+      AI_BRIDGE_DATABASE_URL: ${AI_BRIDGE_DATABASE_URL:-}
+      AI_FACTORY_SHARED_SECRET: ${AI_FACTORY_SHARED_SECRET:-}
+    expose:
+      - "8080"
+    networks:
+      - proidu_internal
+  gateway:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      PROIDU_HOST: ${PROIDU_HOST:?Set a DNS hostname}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+      - web
+    networks:
+      - proidu_internal
+networks:
+  proidu_internal:
+    driver: bridge
+volumes:
+  caddy_data:
+  caddy_config:

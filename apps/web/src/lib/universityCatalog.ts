@@ -10,10 +10,6 @@ export interface UniversityCatalogEntry {
   sourceUrl: string;
 }
 
-const CACHE_VERSION = '2025-02';
-const CACHE_PREFIX = `proidu:universities:${CACHE_VERSION}:`;
-const REQUEST_TIMEOUT_MS = 18_000;
-
 export function getOfficialRegionUrl(region: UniversityRegion): string {
   return `https://monitoring.miccedu.ru/iam/2025/_vpo/material.php?id=${region.monitoringId}&type=2`;
 }
@@ -22,36 +18,23 @@ export async function loadRegionUniversities(
   region: UniversityRegion,
   options: { force?: boolean; signal?: AbortSignal } = {}
 ): Promise<UniversityCatalogEntry[]> {
-  const cacheKey = `${CACHE_PREFIX}${region.id}`;
-  if (!options.force) {
-    const cached = readCache(cacheKey);
-    if (cached.length > 0) return cached;
-  }
-
-  const officialUrl = getOfficialRegionUrl(region);
-  const endpoints = [
-    `https://r.jina.ai/http://monitoring.miccedu.ru/iam/2025/_vpo/material.php?id=${region.monitoringId}&type=2`,
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(officialUrl)}`,
-    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(officialUrl)}`,
-    officialUrl
-  ];
-
-  const errors: string[] = [];
-  for (const endpoint of endpoints) {
-    try {
-      const raw = await fetchText(endpoint, options.signal);
-      const parsed = parseUniversityCatalog(raw, region);
-      if (parsed.length > 0) {
-        writeCache(cacheKey, parsed);
-        return parsed;
-      }
-      errors.push(`Пустой ответ: ${new URL(endpoint).host}`);
-    } catch (error) {
-      errors.push(error instanceof Error ? error.message : String(error));
-    }
-  }
-
-  throw new Error(`Не удалось загрузить официальный список. ${errors.slice(0, 2).join(' · ')}`);
+  // No client-side third-party proxy, no localStorage source of truth.
+  const response = await fetch('/api/v1/search', {
+    method: 'POST',
+    headers: {'content-type':'application/json'},
+    signal: options.signal,
+    body: JSON.stringify({action:'institutions', region:region.name, limit:500}),
+  });
+  if (!response.ok) throw new Error('Федеральный каталог: API HTTP ' + response.status);
+  const body = await response.json() as {data?: Array<{
+    institution_id:string; official_name:string; region_name?:string|null;
+    city?:string|null; is_branch:boolean; official_site?:string|null;
+  }>};
+  return (body.data ?? []).map((item) => ({
+    id:item.institution_id, name:item.official_name, regionId:region.id,
+    regionName:item.region_name || region.name, city:item.city || undefined,
+    isBranch:item.is_branch, sourceUrl:item.official_site || getOfficialRegionUrl(region),
+  }));
 }
 
 export function parseUniversityCatalog(raw: string, region: UniversityRegion): UniversityCatalogEntry[] {
@@ -191,41 +174,3 @@ function slugify(value: string): string {
   return value.toLocaleLowerCase('ru-RU').replace(/[^a-zа-яё0-9]+/giu, '-').replace(/^-|-$/g, '').slice(0, 80);
 }
 
-async function fetchText(url: string, externalSignal?: AbortSignal): Promise<string> {
-  const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-  const abort = () => controller.abort();
-  externalSignal?.addEventListener('abort', abort, { once: true });
-
-  try {
-    const response = await fetch(url, {
-      signal: controller.signal,
-      headers: { Accept: 'text/plain,text/html,application/xhtml+xml' }
-    });
-    if (!response.ok) throw new Error(`${new URL(url).host}: HTTP ${response.status}`);
-    return await response.text();
-  } finally {
-    window.clearTimeout(timeout);
-    externalSignal?.removeEventListener('abort', abort);
-  }
-}
-
-function readCache(key: string): UniversityCatalogEntry[] {
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as { savedAt: number; entries: UniversityCatalogEntry[] };
-    if (!Array.isArray(parsed.entries)) return [];
-    return parsed.entries;
-  } catch {
-    return [];
-  }
-}
-
-function writeCache(key: string, entries: UniversityCatalogEntry[]): void {
-  try {
-    localStorage.setItem(key, JSON.stringify({ savedAt: Date.now(), entries }));
-  } catch {
-    // Storage can be unavailable in restrictive Telegram/browser modes.
-  }
-}

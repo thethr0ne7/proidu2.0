@@ -1,0 +1,68 @@
+name: PROIDU 4 engineering gates
+on:
+  pull_request:
+  push:
+    branches:
+      - 'audit/**'
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: proidu_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d proidu_test"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/proidu_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python requirements
+        run: pip install -r services/api/requirements-dev.txt
+      - name: Apply clean PostgreSQL migrations
+        run: python -m services.api.migrate
+      - name: Run API integration tests
+        run: python -m pytest services/api/tests services/etl services/workers/tests services/bridge/tests -q
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Unit tests
+        run: npm test
+      - name: Production typecheck and build
+        run: npm run build
+
+  infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate private export script syntax
+        run: bash -n scripts/backup_proidu_source.sh
+      - name: Validate Timeweb deployment compose
+        run: docker compose --env-file .env.timeweb.example -f infra/timeweb/compose.yml config --quiet
+      - name: Validate local PostgreSQL compose
+        run: docker compose -f infra/timeweb/compose.dev-postgres.yml config --quiet
