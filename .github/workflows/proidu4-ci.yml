@@ -36,7 +36,7 @@ jobs:
       - name: Apply clean PostgreSQL migrations
         run: python -m services.api.migrate
       - name: Run API integration tests
-        run: python -m pytest services/api/tests -q
+        run: python -m pytest services/api/tests services/etl services/workers/tests -q
   frontend:
     runs-on: ubuntu-latest
     defaults:
