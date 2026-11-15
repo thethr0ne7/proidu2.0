@@ -46,8 +46,8 @@ services:
     command: ["uvicorn", "services.bridge.app:app", "--host", "0.0.0.0", "--port", "8080"]
     restart: unless-stopped
     environment:
-      AI_BRIDGE_DATABASE_URL: ${AI_BRIDGE_DATABASE_URL:?set restricted bridge DSN}
-      AI_FACTORY_SHARED_SECRET: ${AI_FACTORY_SHARED_SECRET:?set 32+ character HMAC secret}
+      AI_BRIDGE_DATABASE_URL: ${AI_BRIDGE_DATABASE_URL:-}
+      AI_FACTORY_SHARED_SECRET: ${AI_FACTORY_SHARED_SECRET:-}
     expose:
       - "8080"
     networks:
