@@ -31,7 +31,7 @@ services:
     command: ["python", "-m", "services.workers.runner"]
     restart: unless-stopped
     environment:
-      DATABASE_URL: ${DATABASE_URL:?set managed PG17 app DSN}
+      DATABASE_URL: ${PROIDU_COLLECTOR_DATABASE_URL:-}
       PROIDU_COLLECTOR_ENABLED: ${PROIDU_COLLECTOR_ENABLED:-false}
       PROIDU_COLLECTOR_ONCE: "false"
       PROIDU_COLLECTOR_INTERVAL_SECONDS: ${PROIDU_COLLECTOR_INTERVAL_SECONDS:-120}
