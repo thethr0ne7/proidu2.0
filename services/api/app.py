@@ -12,12 +12,10 @@ from fastapi import Body, Depends, FastAPI, HTTPException
 from psycopg import Connection
 
 from .database import get_connection, lifespan
-from .factory_bridge import router as factory_bridge_router
 from .queries import PROGRAM_SELECT, SEARCH_FILTER, SELECT_IDS
 from .rules import SUBJECTS, normalized_scores, score_band, score_program
 
 app = FastAPI(title="PROIDU Admissions API", version="4.0.0-alpha", lifespan=lifespan)
-app.include_router(factory_bridge_router)
 
 MAX_SEARCH_PAGE = 200
 MAX_SCAN = 10000
